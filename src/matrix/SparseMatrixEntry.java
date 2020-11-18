@@ -5,7 +5,7 @@ public class SparseMatrixEntry {
     private int i;
     private int j;
 
-    public SparseMatrixEntry(double val, int i, int j){
+    public SparseMatrixEntry(double val, int i, int j) {
         this.value = val;
         this.i = i;
         this.j = j;

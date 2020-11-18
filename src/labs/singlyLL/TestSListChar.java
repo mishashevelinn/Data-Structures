@@ -22,8 +22,7 @@ public class TestSListChar {
     void run() throws Exception {
         char ch;
 
-
-        label:
+        
 
         while (true) {
 
@@ -62,18 +61,18 @@ public class TestSListChar {
                         break;
                     case "P":
                         System.out.println(list.gotoPrior());
-                        break ;
+                        break;
                     case "Print":
                         System.out.println(list.toString());
-                        break ;
+                        break;
                     case "Mv":
                         tokens.nextToken();
                         ch = tokens.sval.charAt(0);
                         list.replace(ch);
-                        break ;
+                        break;
                     case "Del":
                         list.remove();
-                        break ;
+                        break;
                 }
 
             }

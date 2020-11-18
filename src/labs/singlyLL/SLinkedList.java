@@ -98,9 +98,9 @@ public class SLinkedList<T> implements List<T> {
 
     @Override
     public boolean gotoNext() throws Exception {
-        if(isEmpty())
+        if (isEmpty())
             throw new Exception("EmptyListFetchException");
-        if(cursor.getNext() == null){
+        if (cursor.getNext() == null) {
             return false;
         }
         cursor = cursor.getNext();
@@ -109,12 +109,12 @@ public class SLinkedList<T> implements List<T> {
 
     @Override
     public boolean gotoPrior() throws Exception {
-        if(isEmpty())
+        if (isEmpty())
             throw new Exception("EmptyListFetchException");
-        if(cursor.getNext() == head.getNext())
+        if (cursor.getNext() == head.getNext())
             return false;
         SNode<T> temp = head;
-        while(temp.getNext() != cursor) {
+        while (temp.getNext() != cursor) {
             temp = temp.getNext();
         }
         cursor = temp;
@@ -131,11 +131,11 @@ public class SLinkedList<T> implements List<T> {
         StringBuilder res = new StringBuilder();
         SNode<T> temp = head;
         res.append('{');
-        if(size == 0) {
+        if (size == 0) {
             res.append('}');
             return res.toString();
         }
-        while (temp.getNext() != null){
+        while (temp.getNext() != null) {
             res.append(temp.getElement().toString());
             res.append(", ");
             temp = temp.getNext();

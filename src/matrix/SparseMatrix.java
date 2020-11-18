@@ -1,13 +1,13 @@
 package matrix;
 
-import labs.singlyLL.*;
+import labs.singlyLL.SLinkedList;
 
 public class SparseMatrix implements Matrix {
-    SLinkedList<SparseMatrixEntry> entryList;
-    final int size;
-    double defaultValue;
-    boolean T;
-    int scalar;
+    private SLinkedList<SparseMatrixEntry> entryList;
+    private final int size;
+    private double defaultValue;
+    private boolean T;
+    private int scalar;
 
     public SparseMatrix(int size, double defaultValue) throws Exception {
         this.size = size;
@@ -58,26 +58,26 @@ public class SparseMatrix implements Matrix {
         entryList.gotoBeginning();
         if ((i < 0 || i >= size) || j < 0 || j >= size)
             throw new Exception("IndexOutOfBoundsException");
-        if(!entryList.gotoNext()){
+        if (!entryList.gotoNext()) {
             entryList.insert(new SparseMatrixEntry(x, i, j));
+            return;
         }
 
 
-            while (entryList.gotoNext()) {
-                SparseMatrixEntry entry = entryList.getCursor();
-                if (entry.getI() == i && entry.getJ() == j) {
-                    entry.setValue(x / scalar);
-                    return;
-                }
-                entryList.insert(new SparseMatrixEntry(x / scalar, i, j));
+        while (entryList.gotoNext()) {
+            SparseMatrixEntry entry = entryList.getCursor();
+            if (entry.getI() == i && entry.getJ() == j) {
+                entry.setValue(x / scalar);
+                return;
             }
+
+        }
+        entryList.insert(new SparseMatrixEntry(x / scalar, i, j));
     }
 
     @Override
     public void transpose() {
-        T = true;
-
-
+        T = !T;
     }
 
     @Override
@@ -97,10 +97,9 @@ public class SparseMatrix implements Matrix {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                }
-            res.append('\n');
-
             }
+            res.append('\n');
+        }
         return res.toString();
     }
 }

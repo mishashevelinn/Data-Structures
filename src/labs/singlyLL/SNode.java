@@ -1,6 +1,5 @@
 package labs.singlyLL;
 
-import java.awt.geom.GeneralPath;
 
 //Facilitator class for the LinkedList class
 public class SNode<T> {
@@ -11,14 +10,21 @@ public class SNode<T> {
         this.element = element;
         this.next = next;
     }
+
     public T getElement() {
         return element;
     }
+
     public void setElement(T newElem) {
         element = newElem;
     }
 
-    public SNode<T> getNext() { return next;}
-    public void setNext (SNode<T> nextVal) { next = nextVal; }
+    public SNode<T> getNext() {
+        return next;
+    }
+
+    public void setNext(SNode<T> nextVal) {
+        next = nextVal;
+    }
 }
 
