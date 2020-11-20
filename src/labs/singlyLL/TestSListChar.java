@@ -22,7 +22,6 @@ public class TestSListChar {
     void run() throws Exception {
         char ch;
 
-        
 
         while (true) {
 

@@ -19,6 +19,14 @@ public class SparseMatrix implements Matrix {
         entryList.insert(new SparseMatrixEntry(defaultValue, -1, -1));
     }
 
+    public SparseMatrix(SparseMatrix other) {
+        this.size = other.size;
+        this.defaultValue = other.defaultValue;
+        this.entryList = other.entryList;
+        this.T = other.T;
+        this.scalar = other.scalar;
+    }
+
 
     @Override
     public int getSize() {
@@ -83,7 +91,62 @@ public class SparseMatrix implements Matrix {
     @Override
     public void multByConstant(int C) {
         scalar *= C;
+        defaultValue *= C;
 
+    }
+
+    public SparseMatrix add(SparseMatrix other) throws Exception {
+        boolean index_match = false;
+        if (this.size != other.size)
+            throw new Exception("Can't perform addition on matrices of different shape");
+        SparseMatrix res = new SparseMatrix(size, defaultValue + other.defaultValue);
+
+        this.entryList.gotoBeginning();      //set all cursors to the most common element
+        other.entryList.gotoBeginning();
+
+        //temp_other.entryList.gotoNext();     //we want to start to compare from first non-common element in list
+        // temp_this.entryList.gotoNext();
+        while (this.entryList.gotoNext()) {
+            this.entryList.gotoNext();
+            int ThisI = this.entryList.getCursor().getI();                  //first iteration moves the cursor from common element
+            int ThisJ = this.entryList.getCursor().getJ();
+            double thisVal = this.get(ThisI, ThisJ);
+            other.entryList.gotoBeginning();
+
+            while (other.entryList.gotoNext()) {
+
+                int otherI = other.entryList.getCursor().getI();
+                int otherJ = other.entryList.getCursor().getJ();
+                double otherVal = other.get(otherI, otherJ);
+
+                if (ThisI == otherI && ThisJ == otherJ) {
+                    res.entryList.insert(new SparseMatrixEntry((thisVal + otherVal), ThisI, ThisJ));
+                    this.entryList.remove();
+                    other.entryList.remove();
+                    index_match = true;
+                    break;
+                }
+            }
+            if (index_match)
+                break;
+            res.entryList.insert(new SparseMatrixEntry(thisVal + other.defaultValue, ThisI, ThisJ));
+            this.entryList.remove();
+        }
+        other.entryList.gotoBeginning();
+        if (!other.entryList.gotoNext())
+            return res;
+        other.entryList.gotoBeginning();
+        while (other.entryList.gotoNext()) {
+            int otherI = other.entryList.getCursor().getI();
+            int otherJ = other.entryList.getCursor().getJ();
+            res.entryList.insert(new SparseMatrixEntry(other.get(otherI, otherJ) + this.defaultValue, otherI, otherJ));
+        }
+        return res;
+    }
+
+    public SparseMatrix substract(SparseMatrix other) throws Exception {
+        other.multByConstant(-1);
+        return this.add(other);
     }
 
     @Override
@@ -103,4 +166,6 @@ public class SparseMatrix implements Matrix {
         return res.toString();
     }
 }
+
+
 

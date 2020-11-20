@@ -101,6 +101,7 @@ public class SLinkedList<T> implements List<T> {
         if (isEmpty())
             throw new Exception("EmptyListFetchException");
         if (cursor.getNext() == null) {
+            //System.out.println("End of list reached");
             return false;
         }
         cursor = cursor.getNext();
