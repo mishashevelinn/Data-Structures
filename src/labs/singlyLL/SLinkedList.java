@@ -4,6 +4,7 @@ public class SLinkedList<T> implements List<T> {
     SNode<T> head;
     SNode<T> cursor;
     int size;
+    static int i = 0;
 
     public SLinkedList() {
         head = new SNode<>(null, null);
@@ -106,6 +107,7 @@ public class SLinkedList<T> implements List<T> {
         }
         cursor = cursor.getNext();
         return true;
+
     }
 
     @Override
@@ -127,24 +129,24 @@ public class SLinkedList<T> implements List<T> {
         return cursor.getElement();
     }
 
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        SNode<T> temp = head;
-        res.append('{');
-        if (size == 0) {
-            res.append('}');
-            return res.toString();
-        }
-        while (temp.getNext() != null) {
-            res.append(temp.getElement().toString());
-            res.append(", ");
-            temp = temp.getNext();
-        }
-        res.append(temp.getElement().toString());
-        res.append('}');
-        return res.toString();
-
-
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder res = new StringBuilder();
+//        SNode<T> temp = head;
+//        res.append('{');
+//        if (size == 0) {
+//            res.append('}');
+//            return res.toString();
+//        }
+//        while (temp.getNext() != null) {
+//            res.append(temp.getElement().toString());
+//            res.append(", ");
+//            temp = temp.getNext();
+//        }
+//        res.append(temp.getElement().toString());
+//        res.append('}');
+//        return res.toString();
+//
+//
+//    }
 }

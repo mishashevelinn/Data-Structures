@@ -1,6 +1,7 @@
 package matrix;
 
 public class SparseMatrixEntry {
+    boolean T;
     private double value;
     private int i;
     private int j;

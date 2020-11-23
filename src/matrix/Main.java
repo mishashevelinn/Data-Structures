@@ -28,20 +28,32 @@ public class Main {
 //        System.out.println("A matrix shape is "+mat.getSize()+" x "+mat.getSize()+", 2D\n"); //describing shape with getSize
 //        System.out.println(mat.get(2,2));
 //
-        SparseMatrix mat1 = new SparseMatrix(4, 1);
-        mat1.put(0, 0, 2);
+        SparseMatrix mat1 = new SparseMatrix(4, 5);
+        mat1.put(0,0, 3);
+        mat1.put(0, 1, 2);
         mat1.put(1, 0, 5);
+        mat1.put(2, 1, 8);
+        mat1.put(2,3, 19);
 
+        mat1.transpose();
         System.out.println(mat1);
 
-        SparseMatrix mat2 = new SparseMatrix(4, 2);
+        SparseMatrix mat2 = new SparseMatrix(4, 3);
 
-        mat2.put(2, 3, 3);
         mat2.put(0, 0, 10);
-        System.out.println(mat2);
+        mat2.put(1,2, 4);
+        mat2.put(2,3, 18);
+        mat2.put(3,3, 40);
 
-        System.out.println((mat1).substract(mat2));
+
+
+        //  mat2.transpose();
         System.out.println(mat2);
+        System.out.println("mat1 + mat2 = ");
+
+
+        System.out.println(mat1.substract(mat2));
+
 
     }
 
