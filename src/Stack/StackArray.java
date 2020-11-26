@@ -23,8 +23,7 @@ public class StackArray<T> implements Stack<T>{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        top++;
-        element[top] = (T) newElement;
+        element[++top] = (T) newElement;
 
     }
 
@@ -48,17 +47,27 @@ public class StackArray<T> implements Stack<T>{
         while (!isEmpty()){
             pop();
         }
-
     }
 
     @Override
-    public boolean isEmpty() {
-        return top == -1;
-    }
+    public boolean isEmpty() { return top < 0;}
+
 
     @Override
     public boolean isFull() {
         return top + 1 == size;
     }
     int getSize(){return size;}
+
+    public String toString(){
+        StringBuilder s;
+        s = new StringBuilder("[");
+        if(size > 0) s.append(element[0]);
+        if(size > 1)
+            for (int i = 1; i <= top; i++) {
+                s.append(", ").append(element[i]);
+            }
+        s.append(']');
+        return  s.toString();
+    }
 }
