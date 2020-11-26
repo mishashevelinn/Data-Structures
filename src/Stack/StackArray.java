@@ -10,9 +10,6 @@ public class StackArray<T> implements Stack<T>{
         this.size = size;
         element =(T[]) new Object[size];
         top = -1;
-
-
-
     }
 
     @Override
@@ -36,7 +33,7 @@ public class StackArray<T> implements Stack<T>{
         catch (Exception e){
                 e.printStackTrace();
         }
-        T element = (T) new Object();
+        T element;
         element = this.element[top];
         top--;
         return element;
@@ -62,12 +59,15 @@ public class StackArray<T> implements Stack<T>{
     public String toString(){
         StringBuilder s;
         s = new StringBuilder("[");
-        if(size > 0) s.append(element[0]);
-        if(size > 1)
-            for (int i = 1; i <= top; i++) {
-                s.append(", ").append(element[i]);
-            }
+
+        if(isEmpty()) return "[ ]";
+
+        for (int i = 1; i <= top; i++) {
+            s.append(", ").append(element[i]);
+        }
+
         s.append(']');
+
         return  s.toString();
     }
 }
