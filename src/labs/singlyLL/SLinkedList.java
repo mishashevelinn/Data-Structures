@@ -13,9 +13,13 @@ public class SLinkedList<T> implements List<T> {
     }
 
     @Override
-    public void insert(T newElement) throws Exception {
+    public void insert(T newElement){
         if (newElement == null) {
-            throw new Exception("Null element Exception");
+            try {
+                throw new Exception("Null element Exception");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (isEmpty()) {
             head = new SNode<>(newElement, null);//a case of empty List. Now list contains single element
@@ -32,9 +36,13 @@ public class SLinkedList<T> implements List<T> {
     }
 
     @Override
-    public void remove() throws Exception {
+    public void remove()  {
         if (isEmpty()) {
-            throw new Exception("EmptyListException");
+            try {
+                throw new Exception("EmptyListException");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (cursor == head) {
             head = head.getNext();
@@ -43,7 +51,11 @@ public class SLinkedList<T> implements List<T> {
             return;
         }
         if (cursor.getNext() == null) {
-            gotoPrior();
+            try {
+                gotoPrior();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             cursor.setNext(null);
             cursor = head;
             size--;
@@ -51,9 +63,17 @@ public class SLinkedList<T> implements List<T> {
         }
         SNode<T> temp = cursor;
         SNode<T> old_cursor = cursor;
-        gotoPrior();
+        try {
+            gotoPrior();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         cursor.setNext(old_cursor.getNext());
-        gotoNext();
+        try {
+            gotoNext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         size--;
 
     }
@@ -129,24 +149,24 @@ public class SLinkedList<T> implements List<T> {
         return cursor.getElement();
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder res = new StringBuilder();
-//        SNode<T> temp = head;
-//        res.append('{');
-//        if (size == 0) {
-//            res.append('}');
-//            return res.toString();
-//        }
-//        while (temp.getNext() != null) {
-//            res.append(temp.getElement().toString());
-//            res.append(", ");
-//            temp = temp.getNext();
-//        }
-//        res.append(temp.getElement().toString());
-//        res.append('}');
-//        return res.toString();
-//
-//
-//    }
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        SNode<T> temp = head;
+        res.append('{');
+        if (size == 0) {
+            res.append('}');
+            return res.toString();
+        }
+        while (temp.getNext() != null) {
+            res.append(temp.getElement().toString());
+            res.append(", ");
+            temp = temp.getNext();
+        }
+        res.append(temp.getElement().toString());
+        res.append('}');
+        return res.toString();
+
+
+    }
 }

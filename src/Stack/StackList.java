@@ -10,7 +10,9 @@ public class StackList<T> implements Stack<T> {
     SLinkedList<T> listOfStackElements;
 
     public StackList(int size){
+
         capacity = size;
+        listOfStackElements = new SLinkedList<>();
         top = null;
         curr_size = 0;
     }
@@ -20,7 +22,9 @@ public class StackList<T> implements Stack<T> {
 
     @Override
     public void push(T newElement) {
-        top = new SNode<>(newElement, top);
+        listOfStackElements.gotoEnd();
+        listOfStackElements.insert(newElement);
+        top = new SNode<>(newElement, null);
         curr_size++;
     }
 
@@ -34,7 +38,10 @@ public class StackList<T> implements Stack<T> {
                 e.printStackTrace();
         }
         T temp = top.getElement();
-        top = top.getNext();
+        listOfStackElements.gotoEnd();
+        listOfStackElements.remove();
+        listOfStackElements.gotoEnd();
+        top.setElement(listOfStackElements.getCursor());
         curr_size--;
         return temp;
     }
@@ -50,8 +57,32 @@ public class StackList<T> implements Stack<T> {
         return top == null;
     }
 
+    public T getTop() { return top.getElement();}
+
     @Override
     public boolean isFull() {
         return curr_size == capacity;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder res = new StringBuilder();
+        listOfStackElements.gotoBeginning();
+        if(isEmpty()) return "[ ]";
+
+        res.append("[ ");
+
+        if( curr_size > 1 ) res.append(listOfStackElements.getCursor());
+        while (true) {
+            try {
+                if (!listOfStackElements.gotoNext()) break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            res.append(", " + listOfStackElements.getCursor() );
+        }
+        res.append(" ]");
+        return res.toString();
+
     }
 }
