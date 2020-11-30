@@ -3,14 +3,19 @@ package Stack;
 import labs.singlyLL.SLinkedList;
 import labs.singlyLL.SNode;
 
+/*Singly Linked List based Stack implementation*/
 public class StackList<T> implements Stack<T> {
-    private SNode<T> top;
-    private int curr_size;
-    private int capacity;
-    SLinkedList<T> listOfStackElements;
+    private SNode<T> top;   //Points on recently added elemnet
+    private int curr_size;  //current size
+    private int capacity;   //capacity
+    SLinkedList<T> listOfStackElements; //Generic Singly Linked List
 
+
+    /*Constructor:
+    Sets a capacity according to passed parameter
+    top is set to null
+    current size = 0 represents an empty stack*/
     public StackList(int size){
-
         capacity = size;
         listOfStackElements = new SLinkedList<>();
         top = null;
@@ -19,15 +24,20 @@ public class StackList<T> implements Stack<T> {
 
     public int getSize(){ return curr_size; }
 
-
+/*addling a new element to the end of linked list*/
     @Override
     public void push(T newElement) {
-        listOfStackElements.gotoEnd();
-        listOfStackElements.insert(newElement);
-        top = new SNode<>(newElement, null);
-        curr_size++;
+        listOfStackElements.gotoEnd();  //this is just re-check. since Stack doesn't provide an option to
+        listOfStackElements.insert(newElement); //move the cursor of inner Linked List, it will be always on end
+        top = new SNode<>(newElement, null);    //O(1)
+        curr_size++;                        //increment the current size
     }
 
+
+    /*Removing a last added element
+    * O(1)
+    * Go to end calls are just to reassure that cursor points to a last element
+    * It supposed already point at last*/
     @Override
     public T pop() {
         if(isEmpty())
@@ -42,19 +52,20 @@ public class StackList<T> implements Stack<T> {
         listOfStackElements.remove();
         listOfStackElements.gotoEnd();
         curr_size--;
-        if (isEmpty()) {
-            top = null;
+        if (isEmpty()) {    //handling a case when it was a single element in stack
+            top = null;     //such that following call to getCursor won't get a NullPointerException
             return temp;
         }
         top.setElement(listOfStackElements.getCursor());
-
-        return temp;
+        return temp;    //returning a pop'd element
     }
 
     @Override
     public void clear() {
-        while(!isEmpty())
-            pop();
+        listOfStackElements.clear();
+        top = null;
+        curr_size = 0;
+        //O(1)
     }
 
     @Override
@@ -62,7 +73,6 @@ public class StackList<T> implements Stack<T> {
         return curr_size == 0;
     }
 
-    public T getTop() { return top.getElement();}
 
     @Override
     public boolean isFull() {
