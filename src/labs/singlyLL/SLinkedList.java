@@ -48,6 +48,7 @@ public class SLinkedList<T> implements List<T> {
             head = head.getNext();
             cursor = head;
             size--;
+
             return;
         }
         if (cursor.getNext() == null) {
