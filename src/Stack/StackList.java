@@ -41,8 +41,13 @@ public class StackList<T> implements Stack<T> {
         listOfStackElements.gotoEnd();
         listOfStackElements.remove();
         listOfStackElements.gotoEnd();
-        top.setElement(listOfStackElements.getCursor());
         curr_size--;
+        if (isEmpty()) {
+            top = null;
+            return temp;
+        }
+        top.setElement(listOfStackElements.getCursor());
+
         return temp;
     }
 
@@ -54,7 +59,7 @@ public class StackList<T> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        return top == null;
+        return curr_size == 0;
     }
 
     public T getTop() { return top.getElement();}
@@ -72,7 +77,7 @@ public class StackList<T> implements Stack<T> {
 
         res.append("[ ");
 
-        if( curr_size > 1 ) res.append(listOfStackElements.getCursor());
+        if( curr_size >= 1 ) res.append(listOfStackElements.getCursor());
         while (true) {
             try {
                 if (!listOfStackElements.gotoNext()) break;
