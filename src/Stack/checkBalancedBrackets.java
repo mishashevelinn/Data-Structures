@@ -48,7 +48,8 @@ public class checkBalancedBrackets {
         String tested = "< f(x), g(x) > = int_{-/pi}^{/pi}f(x)g(x)dx";
         String tested2 = "{d}";
         checkBalancedBrackets brChecker = new checkBalancedBrackets(tested.length());
-        System.out.println(brChecker.check(tested));
+        System.out.println(brChecker.check(tested2));
+        System.out.println();
 
     }
 
