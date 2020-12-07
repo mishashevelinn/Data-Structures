@@ -1,5 +1,8 @@
 package tries;
 
+
+import static java.lang.Math.max;
+
 public class BSTree {
     private BSTreeNode root;
 
@@ -59,7 +62,7 @@ public class BSTree {
         return root == null;
     }
     public boolean isFull ( ){
-        return true;
+        return false;
     }
 
     public String Preorder(){
@@ -106,17 +109,23 @@ public class BSTree {
         if (root == null)
             return;
 
-        // first recur on left subtree
         PostorderParthner(root.getLeft(), sb);
 
-        // then recur on right subtree
         PostorderParthner(root.getLeft(), sb);
 
-        // now deal with the node
         sb.append(root.getKey());
     }
+    public int height(){
+        return heightParthner(root);
 
-
+    }
+    private int heightParthner(BSTreeNode root) {
+        if(root == null)
+        {
+            return -1;
+        }
+        return 1 + max(heightParthner(root.getLeft()), heightParthner(root.getRight()));
+    }
 
 }
 
