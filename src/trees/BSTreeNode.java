@@ -1,4 +1,4 @@
-package tries;
+package trees;
 
 public class BSTreeNode {
     private int key;

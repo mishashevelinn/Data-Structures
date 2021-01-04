@@ -1,18 +1,21 @@
-package tries;
-import Stack.StackList;
-import Stack.TestLStack;
+package AVLtree;
+
+
+
+import trees.BSTreeNode;
 
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 
-public class TestBSTree {
+public class TestAVLTree {
+
     InputStreamReader reader; // = new InputStreamReader(System.in);
     StreamTokenizer tokens; // = new StreamTokenizer(reader);
-    BSTree bst;
+    AVLTree avl;
 
-    TestBSTree() {
+    TestAVLTree() {
 
-        bst = new BSTree();
+        avl = new AVLTree();
 
         reader = new InputStreamReader(System.in);
 
@@ -29,39 +32,42 @@ public class TestBSTree {
 
                 switch (tokens.sval) {
 
-                    case "add":
+                    case "ADDkey":
                         tokens.nextToken();
                         n = (int) tokens.nval;
-                        bst.insert(n);
+                        avl.insert(n);
                         break;
 
-                    case "find":
+                    case "FINDkey":
 
                         tokens.nextToken();
                         n = (int) tokens.nval;
-                        System.out.println(bst.retrive(n).getKey());
+                        AVLTreeNode node = avl.retrieve(n);
+                        if(node == null) {
+                            System.out.println("No such key.");
+                            break;
+                        }
+                        System.out.println(node.getKey());
                         break;
 
                     case "K":
-                        bst.Inorder();
-
-
+                        System.out.println(avl);
                         break;
 
                     case "E":
 
-                        System.out.println(bst.isEmpty());
+                        System.out.println(avl.isEmpty());
 
                         break;
 
                     case "F":
 
-                        System.out.println(bst.isFull());
+                        System.out.println(avl.isFull());
 
                         break;
 
                     case "C":
-                        bst.clear();
+                        avl.clear();
 
                         break;
 
@@ -70,20 +76,15 @@ public class TestBSTree {
                         return;
 
                     default:
-
-                        System.out.println("No such option\nPlease try again");
-
+                        System.out.println("No such option.\nPlease try again");
                         break;
                 }
-
             }
-
         }
-
     }
 
     public static void main(String[] args) {
-        TestBSTree test = new TestBSTree();
+        TestAVLTree test = new TestAVLTree();
         try {
             test.run();
         } catch (Exception e) {
@@ -91,8 +92,4 @@ public class TestBSTree {
         }
 
     }
-
 }
-
-
-
