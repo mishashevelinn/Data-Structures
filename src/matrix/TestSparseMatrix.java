@@ -8,13 +8,29 @@ public class TestSparseMatrix {
                 mat.put(i, j, i + j);
             }
         }
-        System.out.println(mat);
-//        SparseMatrix temp = mat.LinearTransform(4, 5);
-//        System.out.println(temp);
 
-        SparseMatrix linT = mat.FastLinearTransform(4,5);
-        System.out.println(linT);
-//        System.out.println(mat.get(1, 1)+" retrieving an element at position [1,1]\n");
+        System.out.println(mat);
+
+        mat.MultRowByConst(3, 2);
+        System.out.println(mat);
+
+
+
+        /*********rowSwap*********/
+//        mat.transpose();
+//        System.out.println(mat);
+//        mat.rowSwap(1,2);
+//        System.out.println(mat);
+
+
+
+        /*LINER TRANSFORM*/
+//        System.out.println(mat);
+//        SparseMatrix linT = mat.FastLinearTransform(4,5);
+//        System.out.println(linT);
+
+
+        //        System.out.println(mat.get(1, 1)+" retrieving an element at position [1,1]\n");
 //        mat.multByConstant(4); //multiplication in O(1)
 //        System.out.println(mat+"After multiplication by 4\n");
 //        mat.put(0, 2, 3);

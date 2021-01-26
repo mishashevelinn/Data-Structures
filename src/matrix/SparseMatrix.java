@@ -256,11 +256,11 @@ public class SparseMatrix implements Matrix {
             int j = entryList.getCursor().getJ();
             double tempVal = entryList.getCursor().getValue();
             if (i == j) {
-                temp.entryList.insert(new SparseMatrixEntry(tempVal*m+n, i, j));
+                temp.entryList.insert(new SparseMatrixEntry(tempVal * m + n, i, j));
             }
             else
             {
-                temp.entryList.insert(new SparseMatrixEntry(tempVal*m,i,j));
+                temp.entryList.insert(new SparseMatrixEntry(tempVal * m,i,j));
             }
 
         } while (entryList.gotoNext());
@@ -274,6 +274,59 @@ public class SparseMatrix implements Matrix {
         return temp;
     }
 
+    void rowSwap(int m, int r) throws Exception {
+        if(m < 0 || m > size || r < 0 || r > size){
+            try {
+                throw new Exception("BoundsErrorException");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        entryList.gotoBeginning();
+        if(!T) {
+            do {
+                if (entryList.getCursor().getI() == m) {
+                    entryList.getCursor().setI(r);
+                } else if (entryList.getCursor().getI() == r) {
+                    entryList.getCursor().setI(m);
+                }
+            } while (entryList.gotoNext());
+        }
+        else{
+            do {
+                if (entryList.getCursor().getJ() == m) {
+                    entryList.getCursor().setJ(r);
+                } else if (entryList.getCursor().getJ() == r) {
+                    entryList.getCursor().setJ(m);
+                }
+            } while (entryList.gotoNext());
+
+        }
+    }
+
+
+    public void MultRowByConst(double c, int row) throws Exception {
+        if (row < 0 || row > size) {
+            throw new Exception("BoundErrorException");
+        }
+        entryList.gotoBeginning();
+        do {
+            int i = entryList.getCursor().getI();
+            int j = entryList.getCursor().getJ();
+            double val = entryList.getCursor().getValue();
+            if (i == row) {
+                entryList.getCursor().setValue(val * c);
+            }
+            for (int k = 0; k < size; k++) {
+                if (get(row, k) == defaultValue) {
+                    entryList.insert(new SparseMatrixEntry(defaultValue * c, row, k));
+                }
+            }
+
+
+        }while(entryList.gotoNext());
+    }
 
     /*Once again using existing method get, to determine whether an i,j element is
      * a common element or not*/

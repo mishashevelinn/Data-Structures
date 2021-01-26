@@ -12,7 +12,7 @@ public class StackArray<T> implements Stack<T>{
 *           single parameter size - sets a capacity of inner array which is capacity of stack itself
 *           initializes and inner array with fixed size, according to a parameter
 *           sets top to be -1, represents an empty array, since negative index in array is illegal*/
-    StackArray(int size){
+public StackArray(int size){
         this.size = size;
         element =(T[]) new Object[size];
         top = -1;
