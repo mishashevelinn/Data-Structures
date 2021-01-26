@@ -1,6 +1,6 @@
 package matrix;
 
-import labs.singlyLL.SLinkedList;
+import singlyLL.SLinkedList;
 
 public class SparseMatrix implements Matrix {
     private SLinkedList<SparseMatrixEntry> entryList;
@@ -28,11 +28,12 @@ public class SparseMatrix implements Matrix {
     public int getSize() {
         return size;
     }
-/*Get is the basic function which helps to reduce complexity by providing functionality to other methods
-* like transpose, and multiplication by a scalar. Since we have to check whether indexes, passed to a method
-* do exists in list, a method works in O(r) */
+
+    /*Get is the basic function which helps to reduce complexity by providing functionality to other methods
+     * like transpose, and multiplication by a scalar. Since we have to check whether indexes, passed to a method
+     * do exists in list, a method works in O(r) */
     @Override
-    public double get(int i, int j)  {
+    public double get(int i, int j) {
         SparseMatrixEntry old_cursor = entryList.getCursor();   //represents transpose
         if (T) {
             int temp;       //basic swap of integers
@@ -73,7 +74,7 @@ public class SparseMatrix implements Matrix {
         }
 
         this.entryList.gotoBeginning();                 //if an entry with provided indexes isn't in list
-        while(entryList.getCursor() != old_cursor){     //it means its default value
+        while (entryList.getCursor() != old_cursor) {     //it means its default value
             try {                                       //now rewind the cursor to its original state
                 entryList.gotoNext();
             } catch (Exception e) {
@@ -83,12 +84,12 @@ public class SparseMatrix implements Matrix {
         return defaultValue;                            //and return default value
 
 
-
     }
-/*Put plays nearly the same role as get.
- Checking whether a Node exists in list, causes O(r) complexity*/
+
+    /*Put plays nearly the same role as get.
+     Checking whether a Node exists in list, causes O(r) complexity*/
     @Override
-    public void put(int i, int j, double x)  {
+    public void put(int i, int j, double x) {
         if (T) {                    //we have to swap given indexes in order to
             int temp;               //correctly plug in the value in transposed matrix
             temp = i;
@@ -135,16 +136,16 @@ public class SparseMatrix implements Matrix {
 
     @Override
     /*A flag, used in get and put methods, to handle a swaps of i and j
-    * works in O(1)*/
+     * works in O(1)*/
     public void transpose() {
         T = !T;
     }
 
     @Override
     /*changes a flag, used in get and put methods to handle return values
-    * Works in O(1), changes default value as well*/
+     * Works in O(1), changes default value as well*/
     public void multByConstant(int C) {
-        if(C == 0){
+        if (C == 0) {
             try {
                 throw new Exception("Zero scalar multiplication is not allowed");
             } catch (Exception e) {
@@ -155,67 +156,68 @@ public class SparseMatrix implements Matrix {
         defaultValue *= C;
 
     }
-/*Addition of two matrices. Its natural to use already existing methods - get and put.
-* We make two iterrations of both of lists, representing matrices. in each iteration, for
-* each element of list we apply a put method to add its sum with corresponding element
-* of the other matrix to a result matrix. put is good for that job, because it's not appending
-* already existing nodes to a list, but only updates the values. However each call for put costs us O(r).
-* So to sum up, we work O(r^2) each while cycle. Noticing that some calls of get ( O(r) ) are done as well but
-* it is not affecting a total complexity since O(3*r^2) = O(r^2)   */
-    public SparseMatrix add(SparseMatrix other)  {
-        SparseMatrix res  = null;       //a result matrix
+
+    /*Addition of two matrices. Its natural to use already existing methods - get and put.
+     * We make two iterrations of both of lists, representing matrices. in each iteration, for
+     * each element of list we apply a put method to add its sum with corresponding element
+     * of the other matrix to a result matrix. put is good for that job, because it's not appending
+     * already existing nodes to a list, but only updates the values. However each call for put costs us O(r).
+     * So to sum up, we work O(r^2) each while cycle. Noticing that some calls of get ( O(r) ) are done as well but
+     * it is not affecting a total complexity since O(3*r^2) = O(r^2)   */
+    public SparseMatrix add(SparseMatrix other) {
+        SparseMatrix res = null;       //a result matrix
         try {
-            res = new SparseMatrix(size, defaultValue+other.defaultValue);
+            res = new SparseMatrix(size, defaultValue + other.defaultValue);
         } catch (Exception e) {
             e.printStackTrace();
         }
         entryList.gotoBeginning();
-       while(true){     //iterating over whole list
-           try {
-               if (!entryList.gotoNext()) break;
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-           SparseMatrixEntry curr_entry = entryList.getCursor();
-           int curr_i = curr_entry.getI();     //collecting indexes
-           int curr_j = curr_entry.getJ();      //and value info
-           if(T){                               //handling a transpose case
-               int temp = curr_i;
-               curr_i = curr_j;
-               curr_j = temp;
-           }
-           double cur_val = 0;
-           try {                        //adding corresponding values
-               cur_val = other.get(curr_i, curr_j) + get(curr_i, curr_j);
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-                                        //and appending it to a result matrix
-           res.put(curr_i, curr_j, cur_val);
-       }
+        while (true) {     //iterating over whole list
+            try {
+                if (!entryList.gotoNext()) break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            SparseMatrixEntry curr_entry = entryList.getCursor();
+            int curr_i = curr_entry.getI();     //collecting indexes
+            int curr_j = curr_entry.getJ();      //and value info
+            if (T) {                               //handling a transpose case
+                int temp = curr_i;
+                curr_i = curr_j;
+                curr_j = temp;
+            }
+            double cur_val = 0;
+            try {                        //adding corresponding values
+                cur_val = other.get(curr_i, curr_j) + get(curr_i, curr_j);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //and appending it to a result matrix
+            res.put(curr_i, curr_j, cur_val);
+        }
 
-       //iterating over a second, argument matrix
-       other.entryList.gotoBeginning();
-       while(true){
-           try {
-               if (!other.entryList.gotoNext()) break;
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-           SparseMatrixEntry curr_entry = other.entryList.getCursor();
-           int curr_i = curr_entry.getI();
-           int curr_j = curr_entry.getJ();
-                                            //collecting info about an entry
-           if(other.T){                     //while handing a transpose case
-               int temp = curr_i;
-               curr_i = curr_j;
-               curr_j = temp;
-           }
+        //iterating over a second, argument matrix
+        other.entryList.gotoBeginning();
+        while (true) {
+            try {
+                if (!other.entryList.gotoNext()) break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            SparseMatrixEntry curr_entry = other.entryList.getCursor();
+            int curr_i = curr_entry.getI();
+            int curr_j = curr_entry.getJ();
+            //collecting info about an entry
+            if (other.T) {                     //while handing a transpose case
+                int temp = curr_i;
+                curr_i = curr_j;
+                curr_j = temp;
+            }
 
-           double cur_val = get(curr_i, curr_j) + other.get(curr_i, curr_j);
-           res.put(curr_i, curr_j, cur_val);
-       }            //summing up and appending a new entry to a resulting list
-       return res;
+            double cur_val = get(curr_i, curr_j) + other.get(curr_i, curr_j);
+            res.put(curr_i, curr_j, cur_val);
+        }            //summing up and appending a new entry to a resulting list
+        return res;
     }
 
     public SparseMatrix substract(SparseMatrix other) {
@@ -225,17 +227,56 @@ public class SparseMatrix implements Matrix {
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }}
-            other.multByConstant(-1);               //since multiplication by a scalar is a cheap
-            SparseMatrix res = this.add(other);        //but object impactive operation
-
-            other.multByConstant(-1);               //rollback the changes to the argument
-            return res;
+            }
         }
+        other.multByConstant(-1);               //since multiplication by a scalar is a cheap
+        SparseMatrix res = this.add(other);        //but object impactive operation
+
+        other.multByConstant(-1);               //rollback the changes to the argument
+        return res;
+    }
 
 
-        /*Once again using existing method get, to determine whether an i,j element is
-        * a common element or not*/
+    public SparseMatrix NaiveLinearTransform(int m, double n) {
+        SparseMatrix temp;
+        temp = this;
+        SparseMatrix scalarMatrix = new SparseMatrix(size, 0);
+        for (int i = 0; i < size; i++) {
+            scalarMatrix.put(i, i, n);
+        }
+        temp.multByConstant(m);
+        return temp.add(scalarMatrix);
+    }
+
+    public SparseMatrix FastLinearTransform(int m, double n) throws Exception {
+        SparseMatrix temp = new SparseMatrix(size, m * defaultValue);
+        entryList.gotoBeginning();
+        do {
+            int i = entryList.getCursor().getI();
+            int j = entryList.getCursor().getJ();
+            double tempVal = entryList.getCursor().getValue();
+            if (i == j) {
+                temp.entryList.insert(new SparseMatrixEntry(tempVal*m+n, i, j));
+            }
+            else
+            {
+                temp.entryList.insert(new SparseMatrixEntry(tempVal*m,i,j));
+            }
+
+        } while (entryList.gotoNext());
+
+        for(int i = 0; i < size; i++) {
+            if(temp.get(i,i) == temp.defaultValue)
+            {
+                temp.entryList.insert(new SparseMatrixEntry(defaultValue*m+n, i, i));
+            }
+        }
+        return temp;
+    }
+
+
+    /*Once again using existing method get, to determine whether an i,j element is
+     * a common element or not*/
     @Override
     public String toString() {
         //entryList.gotoBeginning();

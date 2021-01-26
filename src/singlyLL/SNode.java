@@ -1,4 +1,4 @@
-package labs.singlyLL;
+package singlyLL;
 
 
 //Facilitator class for the LinkedList class

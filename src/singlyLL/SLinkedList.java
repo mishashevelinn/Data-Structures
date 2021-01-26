@@ -1,4 +1,4 @@
-package labs.singlyLL;
+package singlyLL;
 
 public class SLinkedList<T> implements List<T> {
     SNode<T> head;
@@ -169,5 +169,9 @@ public class SLinkedList<T> implements List<T> {
         return res.toString();
 
 
+    }
+
+    public SNode<T> getHead() {
+        return head;
     }
 }

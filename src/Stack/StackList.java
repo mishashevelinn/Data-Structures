@@ -1,7 +1,7 @@
 package Stack;
 
-import labs.singlyLL.SLinkedList;
-import labs.singlyLL.SNode;
+import singlyLL.SLinkedList;
+import singlyLL.SNode;
 
 /*Singly Linked List based Stack implementation*/
 public class StackList<T> implements Stack<T> {

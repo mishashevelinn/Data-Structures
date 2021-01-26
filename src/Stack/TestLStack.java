@@ -1,7 +1,5 @@
 package Stack;
 
-import labs.singlyLL.SLinkedList;
-
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 
