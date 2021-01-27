@@ -1,4 +1,4 @@
-package matrix;
+package SparseMatrix;
 
 import singlyLL.SLinkedList;
 
@@ -323,10 +323,79 @@ public class SparseMatrix implements Matrix {
                     entryList.insert(new SparseMatrixEntry(defaultValue * c, row, k));
                 }
             }
-
-
         }while(entryList.gotoNext());
     }
+    SparseMatrix product(SparseMatrix X) throws Exception {
+        if(X.size != size){
+            try {
+                throw new Exception("Product is not defined");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        SparseMatrix res = new SparseMatrix(size, 0);
+        entryList.gotoBeginning();
+        X.entryList.gotoBeginning();
+       // X.entryList.gotoNext();
+        while(entryList.gotoNext()){
+            SparseMatrixEntry self = entryList.getCursor();
+            int i = self.getI();
+            int j = self.getJ();
+            while(X.entryList.gotoNext()) {
+                SparseMatrixEntry x = X.entryList.getCursor();
+                int k = x.getI();
+                int l = x.getJ();
+                if( T && X.T){
+                    X.transpose();
+                    transpose();
+                    res = X.product(this);
+                    res.transpose();
+                    System.out.println("T && x.T");
+
+                    return res;
+                }
+                else if(T){
+                    System.out.println("T");
+
+                    int temp = i;
+                    i = j;
+                    j = temp;
+                }
+                else if(X.T){
+                    int temp = k;
+                    k = l;
+                    l = temp;
+                }
+                if (j == k) {
+
+                    System.out.println("(" + i + "," + j + ")" + ",(" + k + "," + l + ")");
+                    double pair_res = self.getValue() * x.getValue();
+                    res.put(i, l, pair_res + res.get(i, l));
+                }
+            }
+        }
+        return res;
+    }
+    boolean TransposeEquals(SparseMatrix X) throws Exception {
+        if(entryList.getSize() != X.entryList.getSize()){
+            return false;
+        }
+        entryList.gotoBeginning();
+        X.entryList.gotoBeginning();
+
+        while(entryList.gotoNext()){
+            SparseMatrixEntry selfEntry = entryList.getCursor();
+            int i = selfEntry.getI();
+            int j = selfEntry.getJ();
+            double selfVal = selfEntry.getValue();
+            if(selfVal != X.get(j, i)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     /*Once again using existing method get, to determine whether an i,j element is
      * a common element or not*/

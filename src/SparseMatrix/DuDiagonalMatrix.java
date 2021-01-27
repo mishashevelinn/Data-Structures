@@ -1,6 +1,5 @@
-package matrix;
+package SparseMatrix;
 import java.lang.Math;
-import java.util.Arrays;
 
 public class DuDiagonalMatrix {
     double arr[];

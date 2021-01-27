@@ -16,6 +16,10 @@ public class HeapTest {
         /* Our code starts here */
         String curr ;
         int val;
+        for (int i = 0; i < 10; i++) {
+            h.insert(new HeapData(i));
+        }
+        h.PrintLargest(5);
         while ( tokens.nextToken() == StreamTokenizer.TT_WORD ) {
             // works while receiving inputs
             switch (curr = tokens.sval) {	// handles every case of current token
@@ -38,6 +42,11 @@ public class HeapTest {
                     break;
                 case "P":
                     System.out.println(h);
+                    break;
+                case "K":
+                    tokens.nextToken();
+                    int k  = (int)tokens.nval;
+                    h.PrintLargest(k);
                     break;
                 case "Q":
                     System.out.println("Bye Bye!");

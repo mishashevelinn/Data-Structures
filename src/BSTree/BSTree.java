@@ -1,4 +1,4 @@
-package trees;
+package BSTree;
 
 
 import static java.lang.Math.max;

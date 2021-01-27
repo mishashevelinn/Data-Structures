@@ -1,4 +1,4 @@
-package matrix;
+package SparseMatrix;
 
 public class SparseMatrixEntry {
     boolean T;

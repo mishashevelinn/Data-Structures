@@ -2,8 +2,6 @@ package AVLtree;
 
 
 
-import trees.BSTreeNode;
-
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 

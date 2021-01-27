@@ -145,6 +145,10 @@ public class SLinkedList<T> implements List<T> {
         return true;
     }
 
+    public int getSize(){
+        return  size;
+    }
+
     @Override
     public T getCursor() {
         return cursor.getElement();

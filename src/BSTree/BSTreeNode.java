@@ -1,4 +1,4 @@
-package trees;
+package BSTree;
 
 public class BSTreeNode {
     private int key;

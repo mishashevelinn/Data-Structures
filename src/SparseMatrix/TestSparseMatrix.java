@@ -1,18 +1,34 @@
-package matrix;
+package SparseMatrix;
 
 public class TestSparseMatrix {
     public static void main(String[] args) throws Exception {
-        SparseMatrix mat = new SparseMatrix(4, 1);
-        for (int i = 1; i < 3; i++) {
-            for (int j = 2; j < 3; j++) {
-                mat.put(i, j, i + j);
-            }
-        }
+        SparseMatrix mat = new SparseMatrix(4, 0);
+//        for (int i = 1; i < 3; i++) {
+//            for (int j = 2; j < 3; j++) {
+//                mat.put(i, j, i + j);
+//            }
+//        }
+        mat.put(1,2,5);
+
+        SparseMatrix mat2 = new SparseMatrix(4, 0);
+        mat2.put(2,1,5);
+
+        System.out.println(mat.TransposeEquals(mat2));
+
+//        mat2.put(2,3, 18);
+//        mat2.put(3,3, 40);
 
         System.out.println(mat);
+        System.out.println(mat2);
+        System.out.println((mat.product(mat2)));
 
-        mat.MultRowByConst(3, 2);
-        System.out.println(mat);
+
+
+/****Mult row by constant*/
+//        System.out.println(mat);
+//
+//        mat.MultRowByConst(3, 2);
+//        System.out.println(mat);
 
 
 
@@ -61,12 +77,7 @@ public class TestSparseMatrix {
 //        System.out.println("mat1:");
 //        System.out.println(mat1);
 //
-//        SparseMatrix mat2 = new SparseMatrix(5, 3);
-//
-//        mat2.put(0, 0, 10);
-//        mat2.put(1,2, 4);
-//        mat2.put(2,3, 18);
-//        mat2.put(3,3, 40);
+
 //
 //
 //

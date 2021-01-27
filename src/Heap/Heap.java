@@ -77,6 +77,44 @@ public class Heap {
         heap_arr[i] = temp;         // found temps correct location
         return min;
     }
+    public void PrintLargest(int k){
+        System.out.println("k = " + k);
+        if(isEmpty()){
+            try {
+                throw new Exception("Heap is empty u foool");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Heap kHeap = new Heap(k+1);
+        HeapData temp = heap_arr[1];
+        temp.index = 1;
+        kHeap.insert(temp);
+
+        for (int j = 0; j < k ; j++) {
+
+            int leftIndex = kHeap.heap_arr[1].index * 2;
+            int rightIndex = kHeap.heap_arr[1].index * 2 + 1;
+            if(leftIndex < curr_size)
+            {
+                HeapData left = heap_arr[leftIndex];
+                left.index = leftIndex;
+                kHeap.insert(left);
+            }
+            if(rightIndex < curr_size)
+            {
+                HeapData right = heap_arr[rightIndex];
+                right.index = rightIndex;
+                kHeap.insert(right);
+            }
+
+            HeapData min = kHeap.removeMin();
+            if(min != null)
+                System.out.println(min);
+            else
+                return;
+        }
+    }
 
     public String toString() {
         if (isEmpty())
