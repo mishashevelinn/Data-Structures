@@ -19,8 +19,6 @@ struct E {
 class Merge {
 public:
     E *arr;
-    string mode;
-
     Merge(int size) {
         arr = new E[size];
         this->mode.assign(mode);
